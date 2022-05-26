@@ -1,21 +1,28 @@
 <div class="signup-form card p-2">
-  <form [formGroup]="userForm" (ngSubmit)="saveForm()">
+  <form [formGroup]="userForm" (ngSubmit)="saveForm()" novalidate>
     <h2>Register</h2>
     <hr>
     <p class="hint-text">Create your account. It's free and only takes a minute.</p>
     <div class="form-group p-2">
-      <div class="row">
-        <div class="col"><input type="text" formControlName="firstName" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"></div>
-        <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
-          <div *ngIf="f['firstName'].errors['required']">firstName is required</div>
-        </div>
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="First Name" name="firstName" formControlName="firstName"
+          [ngClass]="{'border-danger': invalidError.firstName.invalid, 'border-success':
+          !invalidError.firstName.invalid}">
       </div>
+      <p class="alert alert-danger mt-1" *ngIf="invalidError.firstName && invalidError.firstName.invalid && (invalidError.firstName.dirty ||
+        invalidError.firstName.touched)">
+        <span *ngIf="invalidError.firstName.errors.required">Name is Required.</span>
+        <span *ngIf="invalidError.firstName.errors.minlength">Minlength is 3.</span>
+        <span *ngIf="invalidError.firstName.errors.pattern">First Name is not Valid. Please use without
+          space</span>
+      </p>
     </div>
     <div class="form-group p-2">
       <div class="row">
-        <div class="col"><input type="text" class="form-control" name="last_name" placeholder="Last Name"
-            required="required"></div>
+        <div class="col"><input type="text" class="form-control" name="lastName" placeholder="Last Name"
+            formControlName="lastName"
+            [ngClass]="{'border-danger': invalidError.lastName.invalid, 'border-success': !invalidError.lastName.invalid}">
+        </div>
       </div>
     </div>
     <div class="form-group p-2">
@@ -33,10 +40,12 @@
           Use</a> &amp; <a href="#">Privacy Policy</a></label>
     </div>
     <div class="form-group p-2">
-      <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
-      <div class="text-center">Already have an account? <a href="#">Sign in</a></div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!userForm.valid">Register
+        Now</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="resetForm()">Reset
+        Now</button>
     </div>
   </form>
 
 </div>
-<pre [innerHtml]="userForm | json"> </pre>
+<!-- <pre [innerHtml]="userForm.value | json"> </pre> -->
