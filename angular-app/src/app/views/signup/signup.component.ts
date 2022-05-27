@@ -8,7 +8,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class SignupComponent implements OnInit {
   userForm: any = new FormGroup({
-    firstName: new FormControl('')
+    // firstName: new FormControl('')
   })
   submitted = false;
   constructor(private fb: FormBuilder) { }
@@ -34,18 +34,59 @@ export class SignupComponent implements OnInit {
             Validators.required,
             Validators.minLength(3)
           ]
+        ],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+          ]
+        ],
+        password: [
+          '',
+          Validators.compose(
+            [
+              Validators.required,
+              Validators.minLength(8),
+              Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
+            ]
+          )
+        ],
+        confirmPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
+          ]
         ]
+      },
+      {
+        validator: this.passwordConfirming
       }
     )
   }
+
+  passwordConfirming(userFormInfo: any) {
+    // console.log("userFormInfo", userFormInfo);
+    if (userFormInfo.get('password').value !== userFormInfo.get('confirmPassword').value) {
+      return { invalid: true }
+    } else {
+      return true;
+    }
+  }
+
 
   get invalidError() {
     return this.userForm.controls;
   }
 
+
+
   saveForm() {
     this.submitted = true;
-    console.log("userForm.invalid======", this.userForm.valid)
+    console.log("userForm.invalid======", this.userForm)
     if (this.userForm.valid) {
       console.log("0000", JSON.stringify(this.userForm.value, null, 2));
       return;
