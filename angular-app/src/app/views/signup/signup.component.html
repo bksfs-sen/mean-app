@@ -67,15 +67,25 @@
       </p>
     </div>
     <div class="form-group p-2">
+      <span>
+        <input type="radio" name="gender" formControlName="gender" value="male" id="maleGender">
+        <label for="maleGender" class="m-2 bolder"> Male </label>
+      </span>
+      <span class="m-5">
+        <input type="radio" name="gender" formControlName="gender" value="female" id="femaleGender">
+        <label for="femaleGender" class="m-2 bolder"> Female </label>
+      </span>
+    </div>
+    <div class="form-group p-2">
       <label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of
           Use</a> &amp; <a href="#">Privacy Policy</a></label>
     </div>
     <div class="form-group p-2">
       <button type="submit" class="btn btn-primary btn-lg btn-sm m-2" [disabled]="!userForm.valid">Register
         Now</button>
-      <button type="submit" class="btn btn-danger btn-lg btn-sm" (click)="resetForm()">Reset
+      <button type="submit" class="btn btn-danger btn-lg btn-sm" (click)="resetForm()">Reset & edit
       </button>
     </div>
   </form>
 </div>
-<!-- <pre [innerHtml]="userForm.value | json"> </pre> -->
+<pre [innerHtml]="userForm.value | json"> </pre>

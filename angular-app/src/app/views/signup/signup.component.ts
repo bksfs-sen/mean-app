@@ -60,7 +60,8 @@ export class SignupComponent implements OnInit {
             Validators.minLength(8),
             Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
           ]
-        ]
+        ],
+        gender: 'male'
       },
       {
         validator: this.passwordConfirming
@@ -86,7 +87,7 @@ export class SignupComponent implements OnInit {
 
   saveForm() {
     this.submitted = true;
-    console.log("userForm.invalid======", this.userForm)
+    console.log("userForm.invalid======", this.userForm.value)
     if (this.userForm.valid) {
       console.log("0000", JSON.stringify(this.userForm.value, null, 2));
       return;
@@ -107,6 +108,20 @@ export class SignupComponent implements OnInit {
 
   resetForm() {
     this.configUserForm()
+
+    setTimeout(() => {
+
+      // checking edit form with reset from with validate
+      this.userForm.value =
+        this.userForm.reset({
+          "firstName": "bharat",
+          "lastName": "sen",
+          "email": "bharat@gmail.com",
+          "password": "Bharat@123",
+          "confirmPassword": "Bharat@123",
+          "gender": ""
+        });
+    }, 5000);
   }
 
 }
