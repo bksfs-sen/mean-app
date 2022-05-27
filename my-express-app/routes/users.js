@@ -8,4 +8,5 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/getUsers', Users.getUsers);
+router.post('/save', Users.saveUser);
 module.exports = router;

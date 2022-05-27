@@ -28,6 +28,7 @@ exports.getUsers = async (req, res) => {
 
 exports.saveUser = (req, res) => {
   let postData = req.body
+  console.log("postData=========", postData);
   if (postData._id) {
     Users.updateOne({
       _id: postData._id

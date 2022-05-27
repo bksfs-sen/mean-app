@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiUserService } from 'src/app/services/api-user.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,7 @@ export class SignupComponent implements OnInit {
     // firstName: new FormControl('')
   })
   submitted = false;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private apiUserService: ApiUserService) { }
 
   ngOnInit(): void {
     this.configUserForm()
@@ -87,13 +88,19 @@ export class SignupComponent implements OnInit {
 
   saveForm() {
     this.submitted = true;
-    console.log("userForm.invalid======", this.userForm.value)
     if (this.userForm.valid) {
-      console.log("0000", JSON.stringify(this.userForm.value, null, 2));
-      return;
-    } else {
-      console.log("1111", JSON.stringify(this.userForm.value, null, 2));
+      // console.log('form is valid')
+      this.apiUserService.SaveUser(this.userForm.value).subscribe({
+        next: (res) => {
+          console.log("res===============", res);
 
+        },
+        error: (error) => {
+          console.log("error===============", error);
+        }
+      })
+    } else {
+      console.log('form is invalid')
     }
   }
 
