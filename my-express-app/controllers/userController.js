@@ -51,7 +51,7 @@ exports.saveUser = (req, res) => {
     Object.keys(postData).map((objKey) => {
       userInfo[objKey] = postData[objKey];
     })
-    userInfo.save((err, res) => {
+    userInfo.save((err, resp) => {
       if (err) {
         return res.json({
           status: 500,
@@ -61,6 +61,7 @@ exports.saveUser = (req, res) => {
       } else {
         return res.json({
           status: 200,
+          data: resp,
           message: 'User has been added successfully.'
         })
       }
