@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiUserService } from 'src/app/services/api-user.service';
 
 @Component({
@@ -12,6 +12,29 @@ export class SignupComponent implements OnInit {
     // firstName: new FormControl('')
   })
   submitted = false;
+  addHobby: string = '';
+  skills: Array<any> = [
+    {
+      name: 'node',
+      value: false
+    },
+    {
+      name: 'angular',
+      value: false
+    },
+    {
+      name: 'mongo',
+      value: false
+    },
+    {
+      name: 'express',
+      value: false
+    },
+    {
+      name: 'nestJS',
+      value: false
+    }
+  ]
   constructor(private fb: FormBuilder, private apiUserService: ApiUserService) { }
 
   ngOnInit(): void {
@@ -62,7 +85,9 @@ export class SignupComponent implements OnInit {
             Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
           ]
         ],
-        gender: 'male'
+        gender: 'male',
+        hobbies: this.fb.array([], [Validators.required, Validators.minLength(1)]),
+        skills: this.fb.array([], [Validators.required, Validators.minLength(1)])
       },
       {
         validator: this.passwordConfirming
@@ -71,7 +96,6 @@ export class SignupComponent implements OnInit {
   }
 
   passwordConfirming(userFormInfo: any) {
-    // console.log("userFormInfo", userFormInfo);
     if (userFormInfo.get('password').value !== userFormInfo.get('confirmPassword').value) {
       return { invalid: true }
     } else {
@@ -93,7 +117,6 @@ export class SignupComponent implements OnInit {
       this.apiUserService.SaveUser(this.userForm.value).subscribe({
         next: (res) => {
           console.log("res===============", res);
-
         },
         error: (error) => {
           console.log("error===============", error);
@@ -111,6 +134,55 @@ export class SignupComponent implements OnInit {
     } else {
       return 'text-success'
     }
+  }
+
+  addHobbies() {
+    if (!this.addHobby) {
+      alert('Please enter add hobby!');
+    } else {
+      if (this.getHobbies.controls.length) {
+        const foundAlreadyExit = this.getHobbies.controls.find((hobbyEle: any) => this.addHobby === hobbyEle.value);
+        if (!foundAlreadyExit) {
+          this.getHobbies.push(new FormControl(this.addHobby))
+        } else {
+          alert('This Hobby already exits !');
+        }
+      } else {
+        this.getHobbies.push(new FormControl(this.addHobby))
+      }
+    }
+    this.addHobby = '';
+  }
+
+  get getHobbies(): FormArray {
+    return this.userForm.get('hobbies') as FormArray;
+  }
+
+  removeHobbies(index: number) {
+    this.getHobbies.removeAt(index)
+
+  }
+
+  setUnsetSkill($event: any, skill: any) {
+    let allSkills: any = this.getSkills;
+
+    // console.log("e.target=====", $event.target.checked)
+    if ($event.target.checked) {
+      skill.value = true;
+      allSkills.push(new FormControl(skill));
+    } else {
+      skill.value = false;
+      this.getSkills.controls.forEach((ele: any, index) => {
+        if (ele.value.name === skill.name) {
+          this.getSkills.removeAt(index);
+          return;
+        }
+      })
+    }
+  }
+
+  get getSkills(): FormArray {
+    return this.userForm.get('skills') as FormArray;
   }
 
   resetForm() {

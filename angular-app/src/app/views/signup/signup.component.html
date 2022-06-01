@@ -66,6 +66,7 @@
         Password and confirmPassword does not match.
       </p>
     </div>
+
     <div class="form-group p-2">
       <span>
         <input type="radio" name="gender" formControlName="gender" value="male" id="maleGender">
@@ -76,6 +77,26 @@
         <label for="femaleGender" class="m-2 bolder"> Female </label>
       </span>
     </div>
+
+    <div class="form-group p-2">
+      <strong> Skills: </strong> <br>
+      <span *ngFor="let skill of skills; let i = index">
+        <input type="checkbox" [value]="skill.value" id="s_{{i}}" (change)="setUnsetSkill($event, skill)">
+        <label for="s_{{i}}" class="m-2 bolder"> {{skill.name}} </label>
+      </span>
+    </div>
+    <div class="form-group p-2 d-flex">
+      <input type="text" class="form-control" name="confirmPassword" placeholder="Please enter hobby"
+        [(ngModel)]="addHobby" [ngModelOptions]="{standalone: true}">
+      <button class="btn btn-primary" (click)="addHobbies()"> Add</button>
+    </div>
+    <p>
+      <strong> Your Hobbies:</strong> <br>
+      <span class="btn btn-primary btn-sm border w-25" *ngFor="let item of getHobbies.controls; let i = index">
+        <i class="fa fa-remove cursor-pointer text-white" (click)="removeHobbies(i)"></i>
+        {{item.value}}
+      </span>
+    </p>
     <div class="form-group p-2">
       <label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of
           Use</a> &amp; <a href="#">Privacy Policy</a></label>
@@ -88,4 +109,5 @@
     </div>
   </form>
 </div>
+<pre [innerHtml]="skills | json"> </pre>
 <pre [innerHtml]="userForm.value | json"> </pre>
