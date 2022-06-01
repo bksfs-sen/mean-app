@@ -87,7 +87,13 @@ export class SignupComponent implements OnInit {
         ],
         gender: 'male',
         hobbies: this.fb.array([], [Validators.required, Validators.minLength(1)]),
-        skills: this.fb.array([], [Validators.required, Validators.minLength(1)])
+        skills: this.fb.array([], [Validators.required, Validators.minLength(1)]),
+        terms: [
+          false,
+          [
+            Validators.requiredTrue
+          ]
+        ]
       },
       {
         validator: this.passwordConfirming
