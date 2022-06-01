@@ -3,7 +3,7 @@ var Schema = mongoose.Schema
 var Any = mongoose.Schema.Types.Mixed
 var Skills = new Schema({
   userId: '',
-  skill: {
+  name: {
     type: String,
     trim: true
   }

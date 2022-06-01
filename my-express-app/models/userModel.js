@@ -13,8 +13,11 @@ var Users = new Schema({
   },
   email: {
     type: String,
-    trim: true,
-    lowercase: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    trim: true
   },
   phoneNumber: {
     type: String,
@@ -22,7 +25,8 @@ var Users = new Schema({
   },
   gender: {
     type: String
-  }
+  },
+  hobbies: Any,
 }, {
   timestamps: true,
   collection: 'users'

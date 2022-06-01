@@ -92,7 +92,8 @@
     </div>
     <p>
       <strong> Your Hobbies:</strong> <br>
-      <span class="btn btn-primary btn-sm border w-25" *ngFor="let item of getHobbies.controls; let i = index">
+      <span class="btn btn-primary btn-sm border w-25 text-capitalize"
+        *ngFor="let item of getHobbies.controls; let i = index">
         <i class="fa fa-remove cursor-pointer text-white" (click)="removeHobbies(i)"></i>
         {{item.value}}
       </span>
@@ -109,5 +110,5 @@
     </div>
   </form>
 </div>
-<pre [innerHtml]="skills | json"> </pre>
+<!-- <pre [innerHtml]="skills | json"> </pre> -->
 <pre [innerHtml]="userForm.value | json"> </pre>

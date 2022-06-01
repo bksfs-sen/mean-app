@@ -1,4 +1,6 @@
 const Users = require('../models/userModel');
+const UserSkill = require('../models/skillModel')
+const async = require('async');
 
 exports.getUsers = async (req, res) => {
   try {
@@ -28,7 +30,6 @@ exports.getUsers = async (req, res) => {
 
 exports.saveUser = (req, res) => {
   let postData = req.body
-  console.log("postData=========", postData);
   if (postData._id) {
     Users.updateOne({
       _id: postData._id
@@ -59,10 +60,19 @@ exports.saveUser = (req, res) => {
           data: err
         })
       } else {
-        return res.json({
-          status: 200,
-          data: resp,
-          message: 'User has been added successfully.'
+        async.forEachSeries(postData.skills, (obj, skillCb) => {
+          let userSkill = new UserSkill();
+          userSkill.name = obj.name;
+          userSkill.userId = resp._id;
+          userSkill.save((skillError, SkillResp) => {
+            skillCb()
+          })
+        }, (skillErr, skillRes) => {
+          return res.json({
+            status: 200,
+            data: resp,
+            message: 'User has been added successfully.'
+          })
         })
       }
     })
