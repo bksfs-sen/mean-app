@@ -123,6 +123,35 @@
         userForm.get('address.state').touched)">
           Enter state</p>
       </div>
+      <br>
+      <br>
+      <strong> Floor Details:</strong> <br>
+      <div formGroupName="floorDtails">
+        <div class="col-md-4 pl-2">
+          <input type="text" class="form-control" name="floorN" placeholder="floorN" formControlName="floorN">
+          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.floorDtails.floorN').invalid && userForm.get('address.floorDtails.floorN').errors &&
+          userForm.get('address.floorDtails.floorN').errors && (userForm.get('address.floorDtails.floorN').dirty ||
+          userForm.get('address.floorDtails.floorN').touched)">
+            <span *ngIf="userForm.get('address.floorDtails.floorN').errors.required">Enter floor No.</span>
+            <span *ngIf="userForm.get('address.floorDtails.floorN').errors.pattern">Enter Valid No.</span>
+          </p>
+        </div>
+        <!-- <div class=" col-md-4 pl-2">
+          <input type="text" class="form-control" name="zipCode" placeholder="zip code" formControlName="zipCode">
+          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.zipCode').invalid && userForm.get('address.zipCode').errors && (userForm.get('address.zipCode').dirty ||
+        userForm.get('address.zipCode').touched)" maxLength="6">
+            <span *ngIf="userForm.get('address.zipCode').errors.required">Enter zipcode</span>
+            <span *ngIf="userForm.get('address.zipCode').errors.pattern">
+              Invalid zipcode</span>
+          </p>
+        </div>
+        <div class="col-md-4 pl-2">
+          <input type="text" class="form-control" name="state" placeholder="state" formControlName="state">
+          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.state').invalid && userForm.get('address.state').errors && (userForm.get('address.state').dirty ||
+        userForm.get('address.state').touched)">
+            Enter state</p>
+        </div> -->
+      </div>
     </div>
     <div class="form-group d-flex" formGroupName="address">
     </div>

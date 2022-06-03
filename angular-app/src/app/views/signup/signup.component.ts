@@ -99,6 +99,20 @@ export class SignupComponent implements OnInit {
             '',
             [Validators.required]
           ],
+          floorDtails: this.fb.group({
+            floorN: [
+              '5',
+              [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
+            ],
+            floorDetails: [
+              '',
+              [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z]+$')]
+            ],
+            floorRoomN: [
+              '',
+              [Validators.required, Validators.pattern('^[1-9][0-9]{5}$')]
+            ],
+          }),
           zipCode: [
             '',
             [Validators.required, Validators.maxLength(6), Validators.pattern('^[1-9][0-9]{5}$')]
@@ -221,5 +235,7 @@ export class SignupComponent implements OnInit {
         });
     }, 5000);
   }
+
+
 
 }
