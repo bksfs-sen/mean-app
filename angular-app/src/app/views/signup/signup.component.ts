@@ -93,7 +93,21 @@ export class SignupComponent implements OnInit {
           [
             Validators.requiredTrue
           ]
-        ]
+        ],
+        address: this.fb.group({
+          city: [
+            '',
+            [Validators.required]
+          ],
+          zipCode: [
+            '',
+            [Validators.required, Validators.maxLength(6), Validators.pattern('^[1-9][0-9]{5}$')]
+          ],
+          state: [
+            '',
+            [Validators.required]
+          ]
+        })
       },
       {
         validator: this.passwordConfirming
@@ -195,7 +209,6 @@ export class SignupComponent implements OnInit {
     this.configUserForm()
 
     setTimeout(() => {
-
       // checking edit form with reset from with validate
       this.userForm.value =
         this.userForm.reset({

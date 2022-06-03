@@ -9,7 +9,7 @@
           [ngClass]="{'border-danger': invalidError.firstName.invalid, 'border-success':
           !invalidError.firstName.invalid}">
       </div>
-      <p class="alert alert-danger mt-1" *ngIf="invalidError.firstName.invalid && (invalidError.firstName.dirty ||
+      <p class="alert p-1 alert-danger mt-1" *ngIf="invalidError.firstName.invalid && (invalidError.firstName.dirty ||
         invalidError.firstName.touched)">
         <span *ngIf="invalidError.firstName.errors.required">Name is Required.</span>
         <span *ngIf="invalidError.firstName.errors.minlength">Minlength is 3.</span>
@@ -22,7 +22,7 @@
         <div class="col"><input type="text" class="form-control" name="lastName" placeholder="Last Name"
             formControlName="lastName"
             [ngClass]="{'border-danger': invalidError.lastName.invalid, 'border-success': !invalidError.lastName.invalid}">
-          <p class="alert alert-danger"
+          <p class="alert p-1 alert-danger"
             *ngIf="invalidError.lastName.invalid && (invalidError.lastName.dirty || invalidError.lastName.touched)">
             <span *ngIf="invalidError.lastName.errors.required">Name is Required. </span>
             <span *ngIf="invalidError.lastName.errors.minlength">Minlength is 3.</span>
@@ -33,7 +33,7 @@
     <div class="form-group p-2">
       <input type="text" class="form-control" name="email" placeholder="Email" formControlName="email"
         [ngClass]="{'border-danger': invalidError.email.invalid, 'border-success': !invalidError.email.invalid}">
-      <p class="alert alert-danger"
+      <p class="alert p-1 alert-danger"
         *ngIf="invalidError.email.invalid && (invalidError.email.dirty || invalidError.email.touched)">
         <span *ngIf="invalidError.email.errors.required">Email is Required. </span>
         <span *ngIf="invalidError.email.errors.pattern">Email is invalid. </span>
@@ -42,7 +42,7 @@
     <div class="form-group p-2">
       <input type="password" class="form-control" name="password" placeholder="Password" formControlName="password"
         [ngClass]="{'border-danger': userForm.get('password').invalid, 'border-success': !userForm.get('password').invalid}">
-      <p class="alert alert-danger" *ngIf="userForm.get('password').invalid && (userForm.controls['password'].dirty ||
+      <p class="alert p-1 alert-danger" *ngIf="userForm.get('password').invalid && (userForm.controls['password'].dirty ||
         userForm.controls['password'].touched)">
         <span *ngIf="userForm.get('password').errors.required"> Password is Required.</span>
         <span *ngIf="userForm.get('password').errors.pattern"> Strong password is Required ,Use min 8 characters,1
@@ -56,12 +56,12 @@
       <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password"
         formControlName="confirmPassword"
         [ngClass]="{'border-danger': userForm.get('confirmPassword').invalid, 'border-success': !userForm.get('confirmPassword').invalid}">
-      <p class="alert alert-danger" *ngIf="userForm.get('confirmPassword').errors && userForm.get('confirmPassword').errors.required &&
+      <p class="alert p-1 alert-danger" *ngIf="userForm.get('confirmPassword').errors && userForm.get('confirmPassword').errors.required &&
         userForm.get('confirmPassword').invalid &&
         (userForm.controls['confirmPassword'].dirty || userForm.controls['confirmPassword'].touched)">
         Confirm Password is Required.
       </p>
-      <p class="alert alert-danger"
+      <p class="alert p-1 alert-danger"
         *ngIf="userForm.get('password').value && userForm.get('confirmPassword').value && userForm.get('password').value !== userForm.get('confirmPassword').value">
         Password and confirmPassword does not match.
       </p>
@@ -98,6 +98,35 @@
         {{item.value}}
       </span>
     </p>
+
+    <strong> Address:</strong> <br>
+    <div class="row" formGroupName="address">
+      <div class="col-md-4 pl-2">
+        <input type="text" class="form-control" name="city" placeholder="city" formControlName="city">
+        <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.city').invalid && userForm.get('address.city').errors &&
+          userForm.get('address.city').errors && (userForm.get('address.city').dirty ||
+          userForm.get('address.city').touched)">
+          Enter City</p>
+      </div>
+      <div class=" col-md-4 pl-2">
+        <input type="text" class="form-control" name="zipCode" placeholder="zip code" formControlName="zipCode">
+        <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.zipCode').invalid && userForm.get('address.zipCode').errors && (userForm.get('address.zipCode').dirty ||
+        userForm.get('address.zipCode').touched)" maxLength="6">
+          <span *ngIf="userForm.get('address.zipCode').errors.required">Enter zipcode</span>
+          <span *ngIf="userForm.get('address.zipCode').errors.pattern">
+            Invalid zipcode</span>
+        </p>
+      </div>
+      <div class="col-md-4 pl-2">
+        <input type="text" class="form-control" name="state" placeholder="state" formControlName="state">
+        <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.state').invalid && userForm.get('address.state').errors && (userForm.get('address.state').dirty ||
+        userForm.get('address.state').touched)">
+          Enter state</p>
+      </div>
+    </div>
+    <div class="form-group d-flex" formGroupName="address">
+    </div>
+
     <div class="form-group p-2">
       <label class="form-check-label"><input type="checkbox" name="terms" formControlName="terms"> I accept the <a
           href="#">Terms of
