@@ -126,7 +126,7 @@
       <br>
       <br>
       <strong> Floor Details:</strong> <br>
-      <div formGroupName="floorDtails">
+      <div formGroupName="floorDtails" class="row">
         <div class="col-md-4 pl-2">
           <input type="text" class="form-control" name="floorN" placeholder="floorN" formControlName="floorN">
           <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.floorDtails.floorN').invalid && userForm.get('address.floorDtails.floorN').errors &&
@@ -136,21 +136,24 @@
             <span *ngIf="userForm.get('address.floorDtails.floorN').errors.pattern">Enter Valid No.</span>
           </p>
         </div>
-        <!-- <div class=" col-md-4 pl-2">
-          <input type="text" class="form-control" name="zipCode" placeholder="zip code" formControlName="zipCode">
-          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.zipCode').invalid && userForm.get('address.zipCode').errors && (userForm.get('address.zipCode').dirty ||
-        userForm.get('address.zipCode').touched)" maxLength="6">
-            <span *ngIf="userForm.get('address.zipCode').errors.required">Enter zipcode</span>
-            <span *ngIf="userForm.get('address.zipCode').errors.pattern">
-              Invalid zipcode</span>
+        <div class=" col-md-4 pl-2">
+          <input type="text" class="form-control" name="floorDetails" placeholder="floor Details"
+            formControlName="floorDetails">
+          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.floorDtails.floorDetails').invalid && userForm.get('address.floorDtails.floorDetails').errors && (userForm.get('address.floorDtails.floorDetails').dirty ||
+        userForm.get('address.floorDtails.floorDetails').touched)" maxLength="6">
+            <span *ngIf="userForm.get('address.floorDtails.floorDetails').errors.required">Enter
+              floor Dtails</span>
+            <span *ngIf="userForm.get('address.floorDtails.floorDetails').errors.pattern">
+              Invalid floor Details</span>
           </p>
         </div>
         <div class="col-md-4 pl-2">
-          <input type="text" class="form-control" name="state" placeholder="state" formControlName="state">
-          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.state').invalid && userForm.get('address.state').errors && (userForm.get('address.state').dirty ||
-        userForm.get('address.state').touched)">
-            Enter state</p>
-        </div> -->
+          <input type="text" class="form-control" name="floorRoomN" placeholder="floorRoomN"
+            formControlName="floorRoomN">
+          <p class="alert p-1 alert-danger" *ngIf="userForm.get('address.floorDtails.floorRoomN').invalid && userForm.get('address.floorDtails.floorRoomN').errors && (userForm.get('address.floorDtails.floorRoomN').dirty ||
+        userForm.get('address.floorDtails.floorRoomN').touched)">
+            Enter Floor room no</p>
+        </div>
       </div>
     </div>
     <div class="form-group d-flex" formGroupName="address">

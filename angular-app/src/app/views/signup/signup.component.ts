@@ -101,7 +101,7 @@ export class SignupComponent implements OnInit {
           ],
           floorDtails: this.fb.group({
             floorN: [
-              '5',
+              5,
               [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
             ],
             floorDetails: [
@@ -110,7 +110,7 @@ export class SignupComponent implements OnInit {
             ],
             floorRoomN: [
               '',
-              [Validators.required, Validators.pattern('^[1-9][0-9]{5}$')]
+              [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
             ],
           }),
           zipCode: [
@@ -151,6 +151,7 @@ export class SignupComponent implements OnInit {
       this.apiUserService.SaveUser(this.userForm.value).subscribe({
         next: (res) => {
           console.log("res===============", res);
+          this.configUserForm();
         },
         error: (error) => {
           console.log("error===============", error);
@@ -235,7 +236,5 @@ export class SignupComponent implements OnInit {
         });
     }, 5000);
   }
-
-
 
 }
