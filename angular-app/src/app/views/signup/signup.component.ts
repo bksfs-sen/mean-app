@@ -42,6 +42,7 @@ export class SignupComponent implements OnInit {
   }
 
   configUserForm() {
+    this.skills.filter((ele: any) => ele.value = false);
     this.userForm = this.fb.group(
       {
         firstName: [
