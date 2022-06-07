@@ -6,14 +6,14 @@
     <div class="form-group p-2">
       <div class="input-group">
         <input class="form-control" type="text" placeholder="First Name" name="firstName" formControlName="firstName"
-          [ngClass]="{'border-danger': invalidError.firstName.invalid, 'border-success':
-          !invalidError.firstName.invalid}">
+          [ngClass]="{'border-danger': checkInvalid.firstName.invalid, 'border-success':
+          !checkInvalid.firstName.invalid}">
       </div>
-      <p class="alert p-1 alert-danger mt-1" *ngIf="invalidError.firstName.invalid && (invalidError.firstName.dirty ||
-        invalidError.firstName.touched)">
-        <span *ngIf="invalidError.firstName.errors.required">Name is Required.</span>
-        <span *ngIf="invalidError.firstName.errors.minlength">Minlength is 3.</span>
-        <span *ngIf="invalidError.firstName.errors.pattern">First Name is not Valid. Please use without
+      <p class="alert p-1 alert-danger mt-1" *ngIf="checkInvalid.firstName.invalid && (checkInvalid.firstName.dirty ||
+        checkInvalid.firstName.touched)">
+        <span *ngIf="checkInvalid.firstName.errors.required">Name is Required.</span>
+        <span *ngIf="checkInvalid.firstName.errors.minlength">Minlength is 3.</span>
+        <span *ngIf="checkInvalid.firstName.errors.pattern">First Name is not Valid. Please use without
           space</span>
       </p>
     </div>
@@ -21,22 +21,22 @@
       <div class="row">
         <div class="col"><input type="text" class="form-control" name="lastName" placeholder="Last Name"
             formControlName="lastName"
-            [ngClass]="{'border-danger': invalidError.lastName.invalid, 'border-success': !invalidError.lastName.invalid}">
+            [ngClass]="{'border-danger': checkInvalid.lastName.invalid, 'border-success': !checkInvalid.lastName.invalid}">
           <p class="alert p-1 alert-danger"
-            *ngIf="invalidError.lastName.invalid && (invalidError.lastName.dirty || invalidError.lastName.touched)">
-            <span *ngIf="invalidError.lastName.errors.required">Name is Required. </span>
-            <span *ngIf="invalidError.lastName.errors.minlength">Minlength is 3.</span>
+            *ngIf="checkInvalid.lastName.invalid && (checkInvalid.lastName.dirty || checkInvalid.lastName.touched)">
+            <span *ngIf="checkInvalid.lastName.errors.required">Name is Required. </span>
+            <span *ngIf="checkInvalid.lastName.errors.minlength">Minlength is 3.</span>
           </p>
         </div>
       </div>
     </div>
     <div class="form-group p-2">
       <input type="text" class="form-control" name="email" placeholder="Email" formControlName="email"
-        [ngClass]="{'border-danger': invalidError.email.invalid, 'border-success': !invalidError.email.invalid}">
+        [ngClass]="{'border-danger': checkInvalid.email.invalid, 'border-success': !checkInvalid.email.invalid}">
       <p class="alert p-1 alert-danger"
-        *ngIf="invalidError.email.invalid && (invalidError.email.dirty || invalidError.email.touched)">
-        <span *ngIf="invalidError.email.errors.required">Email is Required. </span>
-        <span *ngIf="invalidError.email.errors.pattern">Email is invalid. </span>
+        *ngIf="checkInvalid.email.invalid && (checkInvalid.email.dirty || checkInvalid.email.touched)">
+        <span *ngIf="checkInvalid.email.errors.required">Email is Required. </span>
+        <span *ngIf="checkInvalid.email.errors.pattern">Email is invalid. </span>
       </p>
     </div>
     <div class="form-group p-2">

@@ -138,7 +138,7 @@ export class SignupComponent implements OnInit {
   }
 
 
-  get invalidError() {
+  get checkInvalid() {
     return this.userForm.controls;
   }
 
@@ -150,8 +150,8 @@ export class SignupComponent implements OnInit {
       // console.log('form is valid')
       this.apiUserService.SaveUser(this.userForm.value).subscribe({
         next: (res) => {
-          console.log("res===============", res);
           this.configUserForm();
+          // this.userForm.reset();
         },
         error: (error) => {
           console.log("error===============", error);
