@@ -146,6 +146,8 @@ export class SignupComponent implements OnInit {
 
   saveForm() {
     this.submitted = true;
+    // const formCopy = Object.assign({}, this.userForm.getRawValue());
+
     if (this.userForm.valid) {
       // console.log('form is valid')
       this.apiUserService.SaveUser(this.userForm.value).subscribe({
@@ -221,7 +223,7 @@ export class SignupComponent implements OnInit {
   }
 
   resetForm() {
-    this.configUserForm()
+    // this.configUserForm()
 
     setTimeout(() => {
       // checking edit form with reset from with validate
