@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiUserService } from 'src/app/services/api-user.service';
-import { SignupValidationService } from './signup-validation.service';
+import { SignupValidationForm } from './signup-validation-form';
 
 @Component({
   selector: 'app-signup',
@@ -12,11 +12,11 @@ export class SignupComponent implements OnInit {
   userForm: any = {}
   submitted = false;
   addHobby: string = '';
-  skills: Array<any> = this.signupValidation.skills
+  skills: Array<any> = this.SignupValidationForm.skills
 
-  constructor(private fb: FormBuilder, private apiUserService: ApiUserService, private signupValidation: SignupValidationService) { }
+  constructor(private fb: FormBuilder, private apiUserService: ApiUserService, private SignupValidationForm: SignupValidationForm) { }
   ngOnInit(): void {
-    this.userForm = this.signupValidation.signupForm();
+    this.userForm = this.SignupValidationForm.signupForm();
   }
 
   get checkInvalid() {
@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
       // console.log('form is valid')
       this.apiUserService.SaveUser(this.userForm.value).subscribe({
         next: (res) => {
-          this.userForm = this.signupValidation.signupForm();
+          this.userForm = this.SignupValidationForm.signupForm();
           // this.userForm.reset();
         },
         error: (error) => {

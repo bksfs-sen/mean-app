@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class SignupValidationService {
+export class SignupValidationForm {
   skills: any[] = [{
     name: 'node',
     value: false

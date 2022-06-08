@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SignupRoutingModule } from './signup-routing.module';
 import { SignupComponent } from './signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SignupValidationService } from './signup-validation.service';
+import { SignupValidationForm } from './signup-validation-form';
 
 
 @NgModule({
@@ -17,6 +17,6 @@ import { SignupValidationService } from './signup-validation.service';
     SignupRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [SignupValidationService],
+  providers: [SignupValidationForm],
 })
 export class SignupModule { }
