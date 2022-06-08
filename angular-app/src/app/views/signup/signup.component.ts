@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiUserService } from 'src/app/services/api-user.service';
+import { SignupValidationService } from './signup-validation.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,142 +9,19 @@ import { ApiUserService } from 'src/app/services/api-user.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  userForm: any = new FormGroup({
-    // firstName: new FormControl('')
-  })
+  userForm: any = {}
   submitted = false;
   addHobby: string = '';
-  skills: Array<any> = [
-    {
-      name: 'node',
-      value: false
-    },
-    {
-      name: 'angular',
-      value: false
-    },
-    {
-      name: 'mongo',
-      value: false
-    },
-    {
-      name: 'express',
-      value: false
-    },
-    {
-      name: 'nestJS',
-      value: false
-    }
-  ]
-  constructor(private fb: FormBuilder, private apiUserService: ApiUserService) { }
+  skills: Array<any> = this.signupValidation.skills
 
+  constructor(private fb: FormBuilder, private apiUserService: ApiUserService, private signupValidation: SignupValidationService) { }
   ngOnInit(): void {
-    this.configUserForm()
+    this.userForm = this.signupValidation.signupForm();
   }
-
-  configUserForm() {
-    this.skills.filter((ele: any) => ele.value = false);
-    this.userForm = this.fb.group(
-      {
-        firstName: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.pattern('^[a-zA-Z]+$'),
-          ],
-        ],
-        lastName: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(3)
-          ]
-        ],
-        email: [
-          '',
-          [
-            Validators.required,
-            Validators.email,
-            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-          ]
-        ],
-        password: [
-          '',
-          Validators.compose(
-            [
-              Validators.required,
-              Validators.minLength(8),
-              Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
-            ]
-          )
-        ],
-        confirmPassword: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
-          ]
-        ],
-        gender: 'male',
-        hobbies: this.fb.array([], [Validators.required, Validators.minLength(1)]),
-        skills: this.fb.array([], [Validators.required, Validators.minLength(1)]),
-        terms: [
-          false,
-          [
-            Validators.requiredTrue
-          ]
-        ],
-        address: this.fb.group({
-          city: [
-            '',
-            [Validators.required]
-          ],
-          floorDtails: this.fb.group({
-            floorN: [
-              5,
-              [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
-            ],
-            floorDetails: [
-              '',
-              [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z]+$')]
-            ],
-            floorRoomN: [
-              '',
-              [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
-            ],
-          }),
-          zipCode: [
-            '',
-            [Validators.required, Validators.maxLength(6), Validators.pattern('^[1-9][0-9]{5}$')]
-          ],
-          state: [
-            '',
-            [Validators.required]
-          ]
-        })
-      },
-      {
-        validator: this.passwordConfirming
-      }
-    )
-  }
-
-  passwordConfirming(userFormInfo: any) {
-    if (userFormInfo.get('password').value !== userFormInfo.get('confirmPassword').value) {
-      return { invalid: true }
-    } else {
-      return true;
-    }
-  }
-
 
   get checkInvalid() {
     return this.userForm.controls;
   }
-
-
 
   saveForm() {
     this.submitted = true;
@@ -153,7 +31,7 @@ export class SignupComponent implements OnInit {
       // console.log('form is valid')
       this.apiUserService.SaveUser(this.userForm.value).subscribe({
         next: (res) => {
-          this.configUserForm();
+          this.userForm = this.signupValidation.signupForm();
           // this.userForm.reset();
         },
         error: (error) => {

@@ -83,7 +83,7 @@
       <span *ngFor="let skill of skills; let i = index">
         <input type="checkbox" [checked]="skill.value" [value]="skill.value" id="s_{{i}}"
           (change)="setUnsetSkill($event, skill)">
-        <label for="s_{{i}}" class="m-2 bolder"> {{skill.name}} {{skill.value}} </label>
+        <label for="s_{{i}}" class="m-2 bolder"> {{skill.name}} </label>
       </span>
     </div>
     <div class="form-group p-2 d-flex">
