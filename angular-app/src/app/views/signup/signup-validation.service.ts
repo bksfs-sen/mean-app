@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -72,7 +71,7 @@ export class SignupValidationService {
             Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[^A-Za-z0-9])(?=.*?[0-9]).{8,}$')
           ]
         ],
-        gender: 'male',
+        gender: '',
         hobbies: this.fb.array([], [Validators.required, Validators.minLength(1)]),
         skills: this.fb.array([], [Validators.required, Validators.minLength(1)]),
         terms: [

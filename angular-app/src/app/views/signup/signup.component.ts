@@ -81,8 +81,6 @@ export class SignupComponent implements OnInit {
 
   setUnsetSkill($event: any, skill: any) {
     let allSkills: any = this.getSkills;
-
-    // console.log("e.target=====", $event.target.checked)
     if ($event.target.checked) {
       skill.value = true;
       allSkills.push(new FormControl(skill));
