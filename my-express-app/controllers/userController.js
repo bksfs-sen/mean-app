@@ -49,12 +49,12 @@ exports.saveUser = (req, res) => {
     })
   } else {
     async.waterfall([
-      // insert way single data 
+      // we can insert many document in same query.
       (cb) => {
-        console.log("postData=======", postData);
+        // console.log("postData=======", postData);
         Users.insertMany([postData, postData, postData, postData], (userErr, useResp) => {
-          console.log("userErr===000=====", userErr);
-          console.log("useResp========", useResp);
+          // console.log("userErr===000=====", userErr);
+          // console.log("useResp========", useResp);
           if (userErr) {
             cb(null, useResp)
           } else {
@@ -64,11 +64,11 @@ exports.saveUser = (req, res) => {
       },
 
       // insert way single data 
-      (cb) => {
-        console.log("postData=======", postData);
+      (updateCb, cb) => {
+        // console.log("postData=======", postData);
         Users.create(postData, (userErr, useResp) => {
-          console.log("userErr===1111=====", userErr);
-          console.log("useResp========", useResp);
+          // console.log("userErr===1111=====", userErr);
+          // console.log("useResp========", useResp);
           if (userErr) {
             cb(null, useResp)
           } else {
@@ -78,11 +78,11 @@ exports.saveUser = (req, res) => {
       },
       // insert way single data 
       (updateCb, cb) => {
-        console.log("postData=======", postData);
+        // console.log("postData=======", postData);
         let userInfo = new Users(postData);
         userInfo.save((userErr, useResp) => {
-          console.log("userErr====222====", userErr);
-          console.log("useResp========", useResp);
+          // console.log("userErr====222====", userErr);
+          // console.log("useResp========", useResp);
           if (userErr) {
             cb(null, useResp)
           } else {
@@ -108,7 +108,7 @@ exports.saveUser = (req, res) => {
                 skillCb()
               })
             }, (skillErr, skillRes) => {
-              cb(null, true)
+              cb(null, useResp)
             })
           }
         })
@@ -137,6 +137,8 @@ exports.saveUser = (req, res) => {
          })
        }, */
     ], (finalErr, finalRes) => {
+      console.log("finalErr========", finalErr);
+      console.log("finalRes========", finalRes);
       return res.json({
         status: 200,
         message: 'User has been added successfully.'
