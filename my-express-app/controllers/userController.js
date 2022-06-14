@@ -48,33 +48,99 @@ exports.saveUser = (req, res) => {
       }
     })
   } else {
-    let userInfo = new Users();
-    Object.keys(postData).map((objKey) => {
-      userInfo[objKey] = postData[objKey];
-    })
-    userInfo.save((err, resp) => {
-      if (err) {
-        return res.json({
-          status: 500,
-          message: 'There are some while saving user.',
-          data: err
+    async.waterfall([
+      // insert way single data 
+      (cb) => {
+        console.log("postData=======", postData);
+        Users.insertMany([postData, postData, postData, postData], (userErr, useResp) => {
+          console.log("userErr===000=====", userErr);
+          console.log("useResp========", useResp);
+          if (userErr) {
+            cb(null, useResp)
+          } else {
+            cb(null, useResp)
+          }
         })
-      } else {
-        async.forEachSeries(postData.skills, (obj, skillCb) => {
-          let userSkill = new UserSkill();
-          userSkill.name = obj.name;
-          userSkill.userId = resp._id;
-          userSkill.save((skillError, SkillResp) => {
-            skillCb()
-          })
-        }, (skillErr, skillRes) => {
-          return res.json({
-            status: 200,
-            data: resp,
-            message: 'User has been added successfully.'
-          })
+      },
+
+      // insert way single data 
+      (cb) => {
+        console.log("postData=======", postData);
+        Users.create(postData, (userErr, useResp) => {
+          console.log("userErr===1111=====", userErr);
+          console.log("useResp========", useResp);
+          if (userErr) {
+            cb(null, useResp)
+          } else {
+            cb(null, useResp)
+          }
         })
-      }
+      },
+      // insert way single data 
+      (updateCb, cb) => {
+        console.log("postData=======", postData);
+        let userInfo = new Users(postData);
+        userInfo.save((userErr, useResp) => {
+          console.log("userErr====222====", userErr);
+          console.log("useResp========", useResp);
+          if (userErr) {
+            cb(null, useResp)
+          } else {
+            cb(null, useResp)
+          }
+        })
+      },
+      // insert way single data 
+      (updateCb, cb) => {
+        let userInfo = new Users();
+        Object.keys(postData).map((objKey) => {
+          userInfo[objKey] = postData[objKey];
+        })
+        userInfo.save((err, useResp) => {
+          if (err) {
+            cb(null, useResp)
+          } else {
+            async.forEachSeries(postData.skills, (obj, skillCb) => {
+              let userSkill = new UserSkill();
+              userSkill.name = obj.name;
+              userSkill.userId = useResp._id;
+              userSkill.save((skillError, SkillResp) => {
+                skillCb()
+              })
+            }, (skillErr, skillRes) => {
+              cb(null, true)
+            })
+          }
+        })
+      },
+      // insert way single data but here will use code mongo core query and  mongooes does not have option insert function.
+      /*  (updateCb, cb) => {
+         Users.insert(postData, (userErr, useResp) => {
+           console.log("userErr===333=====", userErr);
+           console.log("useResp=====333===", useResp);
+           if (userErr) {
+             cb(null, useResp)
+           } else {
+             cb(null, useResp)
+           }
+         })
+       },
+       (updateCb, cb) => {
+         Users.insertOne(postData, (userErr, useResp) => {
+           console.log("userErr===333=====", userErr);
+           console.log("useResp=====333===", useResp);
+           if (userErr) {
+             cb(null, useResp)
+           } else {
+             cb(null, useResp)
+           }
+         })
+       }, */
+    ], (finalErr, finalRes) => {
+      return res.json({
+        status: 200,
+        message: 'User has been added successfully.'
+      })
     })
   }
 }
