@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
   constructor(private fb: FormBuilder, private apiUserService: ApiUserService, private SignupValidationForm: SignupValidationForm) { }
   ngOnInit(): void {
     this.userForm = this.SignupValidationForm.signupForm();
+    this.getUserList();
   }
 
   get checkInvalid() {
@@ -116,4 +117,16 @@ export class SignupComponent implements OnInit {
     }, 5000);
   }
 
+
+  getUserList() {
+    this.apiUserService.getUsers().subscribe({
+      next:(data: any)=>{
+        console.log("data========", data);
+
+      },
+      error:()=>{
+
+      }
+    })
+  }
 }

@@ -22,9 +22,18 @@ export class AppComponent implements OnInit {
     // this.term.open(this.container);
     // this.term.writeln('Welcome to xterm.js');
 
-    this.term = new Terminal();
-    this.term.open(this.terminalDiv.nativeElement);
-    this.term.writeln('Welcome to xterm.js');
-    this.term.loadAddon(new WebLinksAddon());
+    // this.term = new Terminal({
+    //   logLevel: 'debug',
+    //   cursorBlink: true,
+    //   fontFamily: 'consolas',
+    //   screenReaderMode: true,
+    //   cols: 128,
+    //   windowsMode: true
+    // });
+    // // this.term.setOption('cursorBlink', true);
+    // this.term.open(this.terminalDiv.nativeElement);
+    // this.term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+    // this.term.loadAddon(new WebLinksAddon());
+
   }
 }

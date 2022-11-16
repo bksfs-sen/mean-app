@@ -13,10 +13,35 @@ var usersRouter = require('./routes/users');
 
 var DB = require('./core/db');
 // console.log("DB======", DB);
+
+const { spawn, exec } = require('child_process');
+
 const dbCoonection = DB.mongoDbConnect();
 dbCoonection.then(
   (dbRes) => {
-    console.log('db connected');
+    // const child = exec('pwd');
+    console.log("child========", child);
+
+  setImmediate(function A() {
+      console.log("1st immediate");
+  });
+    
+  setImmediate(function B() {
+      console.log("2nd immediate");
+  });
+    
+  process.nextTick(function C() {
+      console.log("1st process");
+  });
+    
+  process.nextTick(function D() {
+      console.log("2nd process");
+  });
+    
+  // First event queue ends here
+  console.log("program started");
+
+    // console.log('db connected');
   },
   (dbErr) => {
     console.log('db connection error', dbErr)

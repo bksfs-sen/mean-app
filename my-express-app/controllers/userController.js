@@ -2,10 +2,11 @@ const Users = require('../models/userModel');
 const UserSkill = require('../models/skillModel')
 const async = require('async');
 
+
 exports.getUsers = async (req, res) => {
   try {
     var userRes = await Users.find();
-    // console.log("userRes======", userRes);
+    console.log("userRes======", userRes);
     if (userRes && userRes.length) {
       return res.json({
         status: 200,
@@ -146,3 +147,86 @@ exports.saveUser = (req, res) => {
     })
   }
 }
+
+
+
+/* 
+var dbConnection = require('../core/db');
+var ClientsDb;
+exports.saveApis = (req, cb) => {
+  ClientsDb = req.session.current_user && req.session.current_user.database == 'awsDb' ? awsDb.ocClients : dbConnection.ocClients;
+  var postData = req.body;
+  if (postData.id) {
+    delete postData.created_date;
+    postData.updated_date = new Date();
+    ClientsDb('oc_apis').where({
+        id: postData.id
+      })
+      .update(postData)
+      .then((result) => {
+        if (postData) {
+          cb(null, postData)
+        } else {
+          cb(true, null);
+        }
+      }).catch((err) => {
+        cb(err, null);
+      });
+  } else {
+    ClientsDb('oc_apis').insert(postData)
+      .then((result) => {
+        if (result.length) {
+          postData.id = result[0];
+          // HERE WE ARE GENERATING TOKEN
+          postData.token = MD5(postData.id);
+          var updateData = {
+            body: {
+              id: postData.id,
+              token: postData.token
+            },
+            session: {
+              current_user: req.session.current_user
+            }
+          }
+          exports.saveApis(updateData, (newerr, resp) => {
+            if (newerr) {
+              cb(true, null);
+            } else {
+              cb(null, postData);
+            }
+          });
+        } else {
+          cb(true, null);
+        }
+      }).catch((err) => {
+        cb(err, null);
+      });
+  }
+} */
+
+
+// Promise
+
+// let myPromise = new Promise( (myResolve, myReject) => {
+// // "Producing Code" (May take some time)
+
+   
+//     var userRes = await Users.find();   
+//     if(userRes){
+//       myResolve(); // when successful
+
+//     } else {
+//       myReject();  // when error
+
+//     }
+// });
+
+// // "Consuming Code" (Must wait for a fulfilled Promise)
+// myPromise.then(
+//    (value) => { 
+//       /* code if successful */ 
+//     },
+//    (error) => { 
+//     /* code if some error */ 
+//     }
+// );

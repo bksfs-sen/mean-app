@@ -15,4 +15,10 @@ export class ApiUserService {
     let apiUrl = this.baseUrl + 'users/save'
     return this.http.post(apiUrl, param).pipe(map((res) => res));
   }
+
+
+  getUsers() {
+    let apiUrl = this.baseUrl + 'users/getUsers'
+    return this.http.get(apiUrl).pipe(map((resp)=> resp))
+  }
 }
