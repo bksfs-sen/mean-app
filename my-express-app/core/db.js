@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 exports.mongoDbConnect = () => {
   mongoose.Promise = global.Promise
-  const connect = mongoose.connect('mongodb+srv://aleyka:XM1gueD9pphpEikk@cluster0.t66iaok.mongodb.net/shoppingMart', {
+  const connect = mongoose.connect(process.env.DB_CONNECTION, {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
     // useCreateIndex: true,

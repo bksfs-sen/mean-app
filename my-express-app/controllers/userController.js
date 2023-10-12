@@ -6,7 +6,7 @@ const async = require('async');
 exports.getUsers = async (req, res) => {
   try {
     var userRes = await Users.find();
-    console.log("userRes======", userRes);
+    // console.log("userRes======", userRes);
     if (userRes && userRes.length) {
       return res.json({
         status: 200,
@@ -207,26 +207,23 @@ exports.saveApis = (req, cb) => {
 
 // Promise
 
-// let myPromise = new Promise( (myResolve, myReject) => {
-// // "Producing Code" (May take some time)
+let myPromise = new Promise( async (myResolve, myReject) => {
+// "Producing Code" (May take some time)   
+    var userRes = await Users.find();   
+    // console.log("userRes======", userRes);
+    if(userRes.length){
+      myResolve(userRes); // when successful
+    } else {
+      myReject(userRes);  // when error
+    }
+});
 
-   
-//     var userRes = await Users.find();   
-//     if(userRes){
-//       myResolve(); // when successful
-
-//     } else {
-//       myReject();  // when error
-
-//     }
-// });
-
-// // "Consuming Code" (Must wait for a fulfilled Promise)
-// myPromise.then(
-//    (value) => { 
-//       /* code if successful */ 
-//     },
-//    (error) => { 
-//     /* code if some error */ 
-//     }
-// );
+// "Consuming Code" (Must wait for a fulfilled Promise)
+myPromise.then(
+   (value) => { 
+    // console.log("value=========", value);    /* code if successful */ 
+  },
+  (error) => { 
+    //  console.log("error=========", error);    /* code if some error */ 
+    }
+);

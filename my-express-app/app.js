@@ -20,7 +20,6 @@ const dbCoonection = DB.mongoDbConnect();
 dbCoonection.then(
   (dbRes) => {
     // const child = exec('pwd');
-    console.log("child========", child);
 
   setImmediate(function A() {
       console.log("1st immediate");
