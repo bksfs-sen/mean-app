@@ -119,14 +119,15 @@ export class SignupComponent implements OnInit {
 
 
   getUserList() {
+
     this.apiUserService.getUsers().subscribe({
-      next:(data: any)=>{
-        console.log("data========", data);
+      next: (resp)=>{
 
       },
-      error:()=>{
+      error: ()=>{
 
       }
-    })
+    });
+
   }
 }

@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'signup',
     loadChildren: () => import('./views/signup/signup.module').then(m => m.SignupModule),
     pathMatch: 'full'
+  },
+  {
+    path:'newPage',
+    loadChildren: () => import('./views/signup/signup.module').then((m) => m.SignupModule)
   }
 ];
 
